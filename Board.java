@@ -18,40 +18,109 @@ public class Board {
 	private int[][] goal;
 	
 	// constructor
-	public Board(int size){
-		tiles = new int[size][size];
-		goal = new int[size][size];
+	public Board(){
+		tiles = new int[3][3]; // could create n-puzzle in theory
+		goal = new int[3][3]; // but for this assignment we are only concerned with 8-puzzle
 		zeroPos = new int[2];
 		// create random puzzle with values 0-9
 		// 0 tile represents blank/empty tile
-		int curTest;
+		int curInit;
 		int curGoal = 1;
 		Set<Integer> closed = new HashSet<Integer>();
 		Random rand = new Random();
 		boolean flag;
-		for(int i = 0; i < size; i++){ // vertical (columns)
-			for(int j = 0; j < size; j++){ // horizontal (rows)
+		for(int i = 0; i < tiles[0].length; i++){ // vertical (columns)
+			for(int j = 0; j < tiles.length; j++){ // horizontal (rows)
 				flag = true;
 				while(flag){
-					curTest = rand.nextInt(size * size);
-					if(!closed.contains(curTest)){ // only add number if it's not already on board
-						tiles[i][j] = curTest;
-						if (curTest == 0){ // save empty tile location
+					curInit = rand.nextInt(tiles[0].length * tiles.length);
+					if(!closed.contains(curInit)){ // only add number if it's not already on board
+						tiles[i][j] = curInit;
+						if (curInit == 0){ // save empty tile location
 							zeroPos[0] = i;
 							zeroPos[1] = j;
 						}
-						closed.add(curTest); // track numbers on board
+						closed.add(curInit); // track numbers on board
 						flag = false; // trip flag once number is added
 					}
 				}
 				
 				goal[i][j] = curGoal;
 				curGoal++;
-				if(curGoal > (size * size - 1)){
+				if(curGoal > (8)){
 					curGoal = 0;
 				}
 			}
 		}
+	}
+	
+	/**
+	 * determines whether current board is solvable
+	 * counts inversions in order of tiles
+	 * even = solvable, odd = unsolvable
+	 * 
+	 * based on solutions described by Mark Ryan:
+	 * http://www.cs.bham.ac.uk/~mdr/teaching/modules04/java2/TilesSolvability.html
+	 * 
+	 * and code by Tushar Vaghela
+	 * http://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
+	 * 
+	 * @return bool describing whether puzzle can be solved
+	 */
+	public boolean isSolvable(){
+		
+		// convert board to 1D array
+		int[] line = new int[tiles[0].length * tiles.length - 1];
+		int index = 0;
+		String list = "";
+		for(int i = 0; i < tiles[0].length; i++){ // col
+			for(int j = 0; j < tiles.length; j++){ // row
+				if(tiles[i][j] != 0){
+					line[index] = tiles[i][j];
+					index++;
+					list += tiles[i][j];
+				}
+			}
+		}
+		//System.out.println(list); // check array
+		
+		// count number of inversions on board
+		int inversions = 0;
+		for(int i = 0; i < line.length; i++){
+			for(int j = i + 1; j < line.length; j++){
+				if(line[j] > line[i]){
+					inversions++;
+				}
+			}
+		}
+		//System.out.println(inversions);
+		// check parity of inversions
+		if(inversions % 2 == 0){ // even = solvable
+			//System.out.println("Solvable puzzle.");
+			return true;
+		} else { // odd = unsolvable
+			//System.out.println("Unsolvable puzzle.");
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * getter for current board state as 3x3 array
+	 * 
+	 * @return tiles - current board state as array
+	 */
+	public int[][] getState(){
+		return tiles;
+	}
+	
+	/**
+	 * getter for goal state as 3x3 array
+	 * 
+	 * @return goal - goal state as array
+	 */
+	public int[][] getGoal(){
+		return goal;
 	}
 	
 	/**
@@ -127,7 +196,7 @@ public class Board {
 	 */
 	public void moveTile(char direction){
 		switch(direction){
-		case 'w':
+		case 'a': // move blank left
 			if(zeroPos[1] - 1 >= 0){
 				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0]] [zeroPos[1] - 1];
 				tiles [zeroPos[0]] [zeroPos[1] - 1] = 0;
@@ -136,7 +205,7 @@ public class Board {
 				System.out.println("Move is not valid.");
 			}
 			break;
-		case 'e':
+		case 'd': // move blank right
 			if(zeroPos[1] + 1 <= tiles.length - 1){
 				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0]] [zeroPos[1] + 1];
 				//System.out.println(tiles[zeroPos[0]][zeroPos[1]]);
@@ -147,7 +216,7 @@ public class Board {
 				System.out.println("Move is not valid.");
 			}
 			break;
-		case 's':
+		case 's': // move blank down
 			if(zeroPos[0] + 1 <= tiles.length - 1){
 				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0] + 1] [zeroPos[1]];
 				tiles [zeroPos[0] + 1] [zeroPos[1]] = 0;
@@ -156,7 +225,7 @@ public class Board {
 				System.out.println("Move is not valid.");
 			}
 			break;
-		case 'n':
+		case 'w': // move blank up
 			if(zeroPos[0] - 1 >= 0){
 				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0] - 1] [zeroPos[1]];
 				tiles [zeroPos[0] - 1] [zeroPos[1]] = 0;
@@ -166,7 +235,8 @@ public class Board {
 			}
 			break;
 		default:
-			System.out.println("Must move n, s, w, or e.");
+			System.out.println("Must move up (w), down (s),"
+					+ " left (a), or right (d).");
 			break;
 		}
 	}
