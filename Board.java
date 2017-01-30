@@ -124,37 +124,24 @@ public class Board {
       
       ArrayList<Board> posMoves = new ArrayList<Board>();
       
-      if ((zeroPos % 3) < 2){
-    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
-    	  int temp = copy[zeroPos + 1];
-    	  copy[zeroPos + 1] = 0;
-    	  copy[zeroPos] = temp;
-    	  posMoves.add(new Board(copy, zeroPos + 1));
-      }
-      if ((zeroPos % 3) >= 0){
-    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
-    	  int temp = copy[zeroPos - 1];
-    	  copy[zeroPos - 1] = 0;
-    	  copy[zeroPos] = temp;
-    	  posMoves.add(new Board(copy, zeroPos - 1));
-      }
-      if ((zeroPos) >= 3){
-    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
-    	  int temp = copy[zeroPos - 3];
-    	  copy[zeroPos - 3] = 0;
-    	  copy[zeroPos] = temp;
-    	  posMoves.add(new Board(copy, zeroPos - 3));
-      }
-      if ((zeroPos) < 6){
-    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
-    	  int temp = copy[zeroPos + 3];
-    	  copy[zeroPos + 3] = 0;
-    	  copy[zeroPos] = temp;
-    	  posMoves.add(new Board(copy, zeroPos + 3));
+      boolean[] checks = {(zeroPos % 3) < 2, (zeroPos % 3) >= 0, (zeroPos) >= 3, (zeroPos) < 6};
+      int[] movts = {zeroPos+1, zeroPos-1, zeroPos-3, zeroPos+3};
+      int i = 0;
+      
+      while (i < 4){
+	      if (checks[i]){
+	    	  int[] copy = tiles.clone();
+	    	  int temp = copy[movts[i]];
+	    	  copy[movts[i]] = 0;
+	    	  copy[zeroPos] = temp;
+	    	  posMoves.add(new Board(copy, movts[i]));
+	      }
+	      i++;
       }
       
       return posMoves;
   	}
+  	
   	
   	public int heuristic1(){
   		
