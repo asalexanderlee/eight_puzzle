@@ -13,50 +13,44 @@ import java.util.Set;
  * @author Collin Epstein
  * @author Ashley Alexander-Lee
  * 
- * Time spent: 2.5 hours
+ * Time spent: 5 hours
  */
 public class Board {
 
 	// instance variables
-	private int[][] tiles;
-	private int[] zeroPos;
-	private int[][] goal;
+	private int[] tiles;
+	private int zeroPos;
 	
 	// constructor
-	public Board(int size){
-		tiles = new int[3][3]; // could create n-puzzle in theory
-		goal = new int[3][3]; // but for this assignment we are only concerned with 8-puzzle
-		zeroPos = new int[2];
+	public Board(){
+		tiles = new int[9]; // could create n-puzzle in theory
+		//goal = new int[9]; // but for this assignment we are only concerned with 8-puzzle
 		// create random puzzle with values 0-9
 		// 0 tile represents blank/empty tile
 		int curInit;
-		int curGoal = 1;
 		Set<Integer> closed = new HashSet<Integer>();
 		Random rand = new Random();
 		boolean flag;
-		for(int i = 0; i < tiles[0].length; i++){ // vertical (columns)
-			for(int j = 0; j < tiles.length; j++){ // horizontal (rows)
-				flag = true;
-				while(flag){
-					curInit = rand.nextInt(tiles[0].length * tiles.length);
-					if(!closed.contains(curInit)){ // only add number if it's not already on board
-						tiles[i][j] = curInit;
-						if (curInit == 0){ // save empty tile location
-							zeroPos[0] = i;
-							zeroPos[1] = j;
-						}
-						closed.add(curInit); // track numbers on board
-						flag = false; // trip flag once number is added
+		for(int i = 0; i < tiles.length; i++){
+			flag = true;
+			while(flag){
+				curInit = rand.nextInt(tiles.length);
+				if(!closed.contains(curInit)){ // only add number if it's not already on board
+					tiles[i] = curInit;
+					if (curInit == 0){ // save empty tile location
+						zeroPos = i;
 					}
-				}
-				
-				goal[i][j] = curGoal;
-				curGoal++;
-				if(curGoal > (8)){
-					curGoal = 0;
+					closed.add(curInit); // track numbers on board
+					flag = false; // trip flag once number is added
 				}
 			}
+
 		}
+	}
+
+	public Board(int[] state, int zero){
+		tiles = state;
+		zeroPos = zero;
 	}
 	
 	/**
@@ -64,12 +58,13 @@ public class Board {
 	 */
 	public void str(){
 		String cur = "";
-		for(int i = 0; i < tiles[0].length; i++){ // vertical
-			for(int j = 0; j < tiles.length; j++){ // horizontal
-				cur += " " + tiles[i][j] + " |";
+		for(int i = 0; i < tiles.length; i++){ 
+			if(i % 3 == 0){
+				cur += '\n';
 			}
-			cur += '\n';  
-		}
+			cur += " " + tiles[i] + " |";
+				
+		} 
 		System.out.println(cur);
 	}
 	
@@ -78,13 +73,14 @@ public class Board {
 	 * i = vertical direction
 	 * @param direction
 	 */
-	public void moveTile(char direction){
+	/*public void moveTile(char direction){
 		switch(direction){
 		case 'w':
 			if(zeroPos[1] - 1 >= 0){
 				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0]] [zeroPos[1] - 1];
 				tiles [zeroPos[0]] [zeroPos[1] - 1] = 0;
 				zeroPos[1] -= 1;
+				//Board westBoard = new Board
 			} else {
 				System.out.println("Move is not valid.");
 			}
@@ -122,27 +118,39 @@ public class Board {
 			System.out.println("Must move n, s, w, or e.");
 			break;
 		}
-	}
+	}*/
   
-  	public ArrayList<int[]> getMoves(){
+  	public ArrayList<Board> getMoves(){
       
-      ArrayList<int[]> posMoves = new ArrayList<int[]>();
+      ArrayList<Board> posMoves = new ArrayList<Board>();
       
-      if ((zeroPos[0] - 1) >= 0){
-    	  int[] possPos = {zeroPos[0]-1, zeroPos[1]};
-    	  posMoves.add(possPos);
+      if ((zeroPos % 3) < 2){
+    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
+    	  int temp = copy[zeroPos + 1];
+    	  copy[zeroPos + 1] = 0;
+    	  copy[zeroPos] = temp;
+    	  posMoves.add(new Board(copy, zeroPos + 1));
       }
-      if ((zeroPos[0] + 1) < tiles.length){
-    	  int[] possPos = {zeroPos[0]+1, zeroPos[1]};
-    	  posMoves.add(possPos);
+      if ((zeroPos % 3) >= 0){
+    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
+    	  int temp = copy[zeroPos - 1];
+    	  copy[zeroPos - 1] = 0;
+    	  copy[zeroPos] = temp;
+    	  posMoves.add(new Board(copy, zeroPos - 1));
       }
-      if ((zeroPos[1] - 1) >= 0){
-    	  int[] possPos = {zeroPos[0], zeroPos[1]-1};
-    	  posMoves.add(possPos);
+      if ((zeroPos) >= 3){
+    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
+    	  int temp = copy[zeroPos - 3];
+    	  copy[zeroPos - 3] = 0;
+    	  copy[zeroPos] = temp;
+    	  posMoves.add(new Board(copy, zeroPos - 3));
       }
-      if ((zeroPos[1] + 1) < tiles[0].length){
-    	  int[] possPos = {zeroPos[0], zeroPos[1]+1};
-    	  posMoves.add(possPos);
+      if ((zeroPos) < 6){
+    	  int[] copy = tiles.clone(); //this copy might not be a copy!!!
+    	  int temp = copy[zeroPos + 3];
+    	  copy[zeroPos + 3] = 0;
+    	  copy[zeroPos] = temp;
+    	  posMoves.add(new Board(copy, zeroPos + 3));
       }
       
       return posMoves;
@@ -153,17 +161,15 @@ public class Board {
   		int numMisplaced = 0;
   		
   		for (int i = 0; i < tiles.length; i++){
-  			for (int j = 0; j < tiles[0].length; j++){
-  				if ((tiles[i][j] != goal[i][j]) && tiles[i][j] != 0){
-  					numMisplaced++;
-  				}
+  			if (tiles[i] != i){
+  				numMisplaced++;
   			}
   		}
   		
   		return numMisplaced;
   	}
   	
-  	private int findDisplacemt(int num){
+  	/*private int findDisplacemt(int num){
   		
   		int[] goalPlace = new int[2];
   		int[] tilesPlace = new int[2];
@@ -186,13 +192,13 @@ public class Board {
   			}
   		}
   		return Math.abs(goalPlace[0]-tilesPlace[0]) + Math.abs(goalPlace[1]-tilesPlace[1]);
-  	}
+  	}*/
   	public int heuristic2(){
   		
   		int totalMovt = 0;
   		
-  		for (int i = 1; i < 9; i++){
-  				totalMovt += findDisplacemt(i);
+  		for (int i = 0; i < tiles.length; i++){
+  			totalMovt += Math.abs(i - tiles[i])%3 + Math.abs(i - tiles[i])%3;
   		}
   	
   		return totalMovt;
