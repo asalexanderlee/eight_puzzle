@@ -199,8 +199,7 @@ public class Board implements Comparable<Board>{
 
 	public int compareTo(Board o) {
 		
-		return (o.heuristic() + o.getNumberMoved()) - 
-				(this.heuristic() + this.getNumberMoved());
+		return (this.heuristic() + this.getNumberMoved()) - (o.heuristic() + o.getNumberMoved());
 	}
 	
 	public int getUsedHeur(){
