@@ -80,52 +80,7 @@ public class Board implements Comparable<Board>{
 	 * i = vertical direction
 	 * @param direction
 	 */
-	/*public void moveTile(char direction){
-		switch(direction){
-		case 'w':
-			if(zeroPos[1] - 1 >= 0){
-				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0]] [zeroPos[1] - 1];
-				tiles [zeroPos[0]] [zeroPos[1] - 1] = 0;
-				zeroPos[1] -= 1;
-				//Board westBoard = new Board
-			} else {
-				System.out.println("Move is not valid.");
-			}
-			break;
-		case 'e':
-			if(zeroPos[1] + 1 <= tiles.length - 1){
-				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0]] [zeroPos[1] + 1];
-				//System.out.println(tiles[zeroPos[0]][zeroPos[1]]);
-				tiles [zeroPos[0]] [zeroPos[1] + 1] = 0;
-				zeroPos[1] += 1;
-				//System.out.println("Zero Position: (" + zeroPos[0] + ", " + zeroPos[1] + ")");
-			} else {
-				System.out.println("Move is not valid.");
-			}
-			break;
-		case 's':
-			if(zeroPos[0] + 1 <= tiles.length - 1){
-				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0] + 1] [zeroPos[1]];
-				tiles [zeroPos[0] + 1] [zeroPos[1]] = 0;
-				zeroPos[0] += 1;
-			} else {
-				System.out.println("Move is not valid.");
-			}
-			break;
-		case 'n':
-			if(zeroPos[0] - 1 >= 0){
-				tiles[zeroPos[0]][zeroPos[1]] = tiles [zeroPos[0] - 1] [zeroPos[1]];
-				tiles [zeroPos[0] - 1] [zeroPos[1]] = 0;
-				zeroPos[0] -= 1;
-			} else {
-				System.out.println("Move is not valid.");
-			}
-			break;
-		default:
-			System.out.println("Must move n, s, w, or e.");
-			break;
-		}
-	}*/
+
 
 	public List<Board> getMoves(){
 
@@ -174,6 +129,21 @@ public class Board implements Comparable<Board>{
 
 		return totalMovt;
 	}
+	
+	private int heuristic3(){
+		int total = 0;
+		for (int i = 0; i< tiles.length; i++){
+			if (tiles[i] != 0){
+				if (tiles[i]/3 != i/3){
+					total++;
+				}
+				if (tiles[i]%3 != i%3){
+					total++;
+				}
+			}
+		}
+		return total;
+	}
 
 	public int compareTo(Board o) {
 		return (this.heuristic() + this.getNumberMoved()) - (o.heuristic() + o.getNumberMoved());
@@ -210,7 +180,10 @@ public class Board implements Comparable<Board>{
 		}
 		else if (heur == 2){
 			return this.heuristic2();
-		} else {
+		} 
+		else if (heur == 3){
+			return this.heuristic3();
+		}else {
 			return 0; //EXCEPTION NEEDED?
 		}
 	}
