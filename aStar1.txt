@@ -1,0 +1,27 @@
+Heuristic 1
+d: 6, Average Nodes Generated: 27, Number of boards: 1
+d: 9, Average Nodes Generated: 63, Number of boards: 2
+d: 10, Average Nodes Generated: 113, Number of boards: 2
+d: 11, Average Nodes Generated: 144, Number of boards: 1
+d: 12, Average Nodes Generated: 205, Number of boards: 3
+d: 13, Average Nodes Generated: 371, Number of boards: 2
+d: 14, Average Nodes Generated: 500, Number of boards: 7
+d: 15, Average Nodes Generated: 675, Number of boards: 4
+d: 16, Average Nodes Generated: 1131, Number of boards: 13
+d: 17, Average Nodes Generated: 1514, Number of boards: 19
+d: 18, Average Nodes Generated: 2344, Number of boards: 20
+d: 19, Average Nodes Generated: 3741, Number of boards: 31
+d: 20, Average Nodes Generated: 5766, Number of boards: 48
+d: 21, Average Nodes Generated: 9836, Number of boards: 48
+d: 22, Average Nodes Generated: 15986, Number of boards: 93
+d: 23, Average Nodes Generated: 27180, Number of boards: 105
+d: 24, Average Nodes Generated: 38098, Number of boards: 134
+d: 25, Average Nodes Generated: 66999, Number of boards: 132
+d: 26, Average Nodes Generated: 87509, Number of boards: 162
+d: 27, Average Nodes Generated: 150066, Number of boards: 123
+d: 28, Average Nodes Generated: 185574, Number of boards: 110
+d: 29, Average Nodes Generated: 285959, Number of boards: 72
+d: 30, Average Nodes Generated: 396365, Number of boards: 42
+d: 31, Average Nodes Generated: 466212, Number of boards: 18
+d: 32, Average Nodes Generated: 624254, Number of boards: 5
+d: 33, Average Nodes Generated: 864528, Number of boards: 3
