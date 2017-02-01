@@ -1,0 +1,8 @@
+Depth: 20, Average num nodes: 6296, Num boards: 2
+Depth: 21, Average num nodes: 14694, Num boards: 1
+Depth: 22, Average num nodes: 14764, Num boards: 1
+Depth: 24, Average num nodes: 37592, Num boards: 1
+Depth: 26, Average num nodes: 89077, Num boards: 1
+Depth: 27, Average num nodes: 154000, Num boards: 2
+Depth: 28, Average num nodes: 197142, Num boards: 1
+Depth: 30, Average num nodes: 421469, Num boards: 1
