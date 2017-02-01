@@ -18,7 +18,6 @@ public class main {
 
 		Queue<Board> frontier = new PriorityQueue<Board>();
 		int nodeCount = 0;
-		//boolean goalReached = false;
 		Set<Board> visited = new HashSet<Board>();
 
 		frontier.add(board);
@@ -26,13 +25,9 @@ public class main {
 		while (!frontier.isEmpty()){
 			Board curNode = frontier.poll();
 			if(curNode.heuristic() == 0){
-				//System.out.println("Goal found");
 				int[] answer = {nodeCount, curNode.getNumberMoved()};
-				//curNode.str();
 				return answer;
 			}
-			//System.out.println("h: " + curNode.heuristic() + " moves: " + curNode.getNumberMoved());
-			//curNode.str();
 			List<Board> possibleMoves = curNode.getMoves();
 			for(int i = 0; i < possibleMoves.size(); i++){
 				Board child = possibleMoves.get(i);
@@ -42,7 +37,6 @@ public class main {
 				}
 				nodeCount++;
 			}
-			//System.out.println(visited.toString());
 		}
 
 
@@ -94,6 +88,20 @@ public class main {
 
 		generateRandSolutions(1);
 		generateRandSolutions(2);
+		generateRandSolutions(3);
+		
+		/*Board board = new Board(3);
+		
+		while(!board.isSolvable()){
+			board = new Board(3);}
+		
+		board.str();
+		
+		int[] solutions = aStar(board);
+		System.out.println("Nodes expanded = " + solutions[0] + '\n' +
+				"Depth = " + solutions[1]);*/
+		
+		
 		//		Board board = new Board(1);
 		//		board.str();
 		//		Board boardO = new Board(1);
