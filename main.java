@@ -61,7 +61,7 @@ public class main {
 			}
 		}
 
-		return new int[2]; //[0,0] indicates no solution possible
+		return new int[2]; //[0,0] indicates no solution possible (or trivial problem)
 	}
 
 	/**
@@ -133,9 +133,9 @@ public class main {
 	// main method
 	public static void main(String args[]){
 
-		generateRandSolutions(1000000, 1, 10);
-		generateRandSolutions(1000000, 2, 10);
-		generateRandSolutions(1000000, 3, 10);
+		generateRandSolutions(5000, 1, 24);
+		generateRandSolutions(5000, 2, 24);
+		generateRandSolutions(5000, 3, 24);
 
 	}
 }
