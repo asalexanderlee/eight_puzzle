@@ -1,0 +1,13 @@
+Heuristic 1, Depth limit = 10, Trials = 1000000
+Note: dpeth = 0 and # of nodes = 0 indicates discarded solutions.
+d: 0, Average Nodes Generated: 0, Number of boards: 100
+d: 1, Average Nodes Generated: 3, Number of boards: 6
+d: 2, Average Nodes Generated: 6, Number of boards: 9
+d: 3, Average Nodes Generated: 9, Number of boards: 25
+d: 4, Average Nodes Generated: 11, Number of boards: 40
+d: 5, Average Nodes Generated: 16, Number of boards: 49
+d: 6, Average Nodes Generated: 23, Number of boards: 98
+d: 7, Average Nodes Generated: 33, Number of boards: 100
+d: 8, Average Nodes Generated: 44, Number of boards: 100
+d: 9, Average Nodes Generated: 69, Number of boards: 100
+d: 10, Average Nodes Generated: 92, Number of boards: 100

@@ -1,0 +1,3 @@
+Heuristic 1, Depth limit = 10, Trials = 100
+Note: dpeth = 0 and # of nodes = 0 indicates discarded solutions.
+d: 0, Average Nodes Generated: 0, Number of boards: 100
