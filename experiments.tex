@@ -1,0 +1,34 @@
+
+\section{Experiments}
+\label{sec:expts}
+
+
+We set about to replicate the experimental results of Russell and
+Norvig regarding the 8-puzzle in order to shed some light on the
+efficacy of different heuristics. In particular, we wanted to know the
+effect a heuristic would have on a search algorithm. Therefore, we
+implemented the A* search algorithm using three various heuristics:
+
+\begin{itemize}
+  \item h1 - the Misplaced Tiles heuristic, which returns the number
+    of tiles that are not in their goal states on the given board
+  \item h2 - the Manhattan Distance, which is defined as the sum of
+    the distances of each tile from its goal state
+  \item h3 - counts the number of tiles that are not in the correct
+    rows and adds it to the number of tiles that are not in their
+    correct columns. This could be considered a more relaxed version
+    of the Manhattan Distance heuristic. 
+\end{itemize}
+
+In order to determine the quality of each heuristic, we recorded the
+depth of the search, as well as the number of nodes generated. We then
+ran a limited A* search for 20,000 trials in order to represent all
+possible search depths from 1 to 20, and we calculated the effective
+branching factor for each heuristic based on these results (shown in
+Table 1).  
+
+
+
+
+
+
