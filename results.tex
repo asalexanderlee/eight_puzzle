@@ -19,23 +19,28 @@ compact, and can be a better choice if you're squeezed for space).
   % right justify the column) and the columns
   % will have lines between them (that's the purpose of the |s between
   % the 'c's).
-  \begin{tabular}{|c|c|c|c|} 
+  \begin{tabular}{|c|c|c|c|c|c|c|} 
     \hline \hline % draws two horizontal lines at the top of the table
-    \rule{0pt}{4ex} d & A*(h1) & A*(h2) & A*(h3) \\ % separate column
+    \rule{0pt}{4ex}   & \multicolumn{3}{l}{Search Cost} &
+                               \multicolumn{3}{l}{Branching Factor}\\ % separate column
                                 % contents using the &
     \hline % line after the column headers
-   \rule{0pt}{4ex} $2$ & $6$ & $6$ & $5$\\
-    $4$ & $11$ & $11$ & $11$\\
-    $6$ & $23$ & $18$ & $18$\\
-    $8$ & $44$ & $28$ & $30$\\
-    $10$ & $92$ & $41$ & $50$\\
-    $12$ & $ $ & $ $ & $ $\\
-    $14$ & $ $ & $ $ & $ $\\
-    $16$ & $ $ & $ $ & $ $\\
-    $18$ & $ $ & $ $ & $ $\\
-    $20$ & $ $ & $ $ & $ $\\
-    $22$ & $ $ & $ $ & $ $\\
-    $ $ & $ $ & $ $ & $ $\\
+   \rule{0pt}{4ex} $d$ & $A*(h1)$ & $A*(h2)$ & 
+                           $A*(h3)$ & $A*(h1)$ & $A*(h2)$ & $A*(h3)$\\
+    \hline
+   \rule{0pt}{4ex} $2$ & $6$ & $6$ & $5$ & $2.00$ & $2.00$ & $1.79$\\
+    $4$ & $11$ & $11$ & $11$ & $1.40$ & $1.40$ & $1.40$\\
+    $6$ & $23$ & $18$ & $18$ & $1.39$ & $1.31$ & $1.31$\\
+    $8$ & $44$ & $28$ & $30$ & $1.37$ & $1.27$ & $1.28$\\
+    $10$ & $92$ & $41$ & $50$ & $1.39$ & $1.24$ & $1.28$\\
+    $12$ & $203 $ & $55$ & $70$ & $1.40$ & $1.22$ & $1.25$\\
+    $14$ & $466 $ & $122$ & $209$ & $1.42$ & $1.26$ & $1.33$\\
+    $16$ & $1029 $ & $262$ & $395$ & $1.43$ & $1.29$ & $1.33$\\
+    $18$ & $2396 $ & $453$ & $850$ & $1.44$ & $1.29$ & $1.35$\\
+    $20$ & $5806 $ & $817$ & $1879$ & $1.46$ & $1.30$ & $1.36$\\
+    $22$ & $16024 $ & $1668$ & $4155$ & $1.47$ & $1.31$ & $1.38$\\
+    $24$ & $38655$ & $3215$ & $9614$ & $1.48$ & $1.32$ & $1.39$\\
+    $ $ & $ $ & $ $ & $ $ & $ $ & $ $ & $ $\\
     \hline \hline
   \end{tabular}
 
