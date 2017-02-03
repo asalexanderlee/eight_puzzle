@@ -22,8 +22,8 @@ implemented the A* search algorithm using three various heuristics:
 
 In order to determine the quality of each heuristic, we recorded the
 depth of the search, as well as the number of nodes generated. We then
-ran a limited A* search for 20,000 trials in order to represent all
-possible search depths from 1 to 20, and we calculated the effective
+ran a depth limited A* search, averaging the results of 100 trials at
+each depth from 1 to 24, and we calculated the effective
 branching factor for each heuristic based on these results (shown in
 Table 1).  
 
